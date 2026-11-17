@@ -1,0 +1,35 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sep {
+  color: #6f8bb3;
+  margin: 0 0.2rem;
+  user-select: none;
+}
+
+.crumb {
+  border: none;
+  background: transparent;
+  color: #1f5fb3;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+}
+
+.crumb:hover {
+  background: #d7e9ff;
+}

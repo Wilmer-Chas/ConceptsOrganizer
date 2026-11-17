@@ -1,0 +1,35 @@
+:root {
+  --ink: #1a2740;
+  --muted: #5b7190;
+  --line: #9ec4ef;
+  --surface: #ffffff;
+  --surface-strong: #e8f3ff;
+  --accent: #2f7de1;
+  --accent-deep: #1f5fb3;
+  --font-display: "Fraunces", "Palatino Linotype", Palatino, serif;
+  --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  background: #d9e8fb;
+  font-family: var(--font-body);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}

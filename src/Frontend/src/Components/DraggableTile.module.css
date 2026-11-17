@@ -1,0 +1,87 @@
+.tile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0;
+  border: 2px solid;
+  border-radius: 10px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  overflow: hidden;
+  box-shadow: 0 6px 0 rgba(20, 40, 70, 0.08), 0 12px 28px rgba(20, 40, 70, 0.12);
+  transition: box-shadow 120ms ease, transform 80ms ease;
+  z-index: 1;
+}
+
+.tile:active {
+  cursor: grabbing;
+}
+
+.tile:hover,
+.tile:focus-visible {
+  box-shadow: 0 8px 0 rgba(20, 40, 70, 0.1), 0 16px 36px rgba(20, 40, 70, 0.18);
+  outline: none;
+  z-index: 2;
+}
+
+.dragging {
+  opacity: 0.92;
+  z-index: 5;
+}
+
+.folder {
+  border-style: solid;
+}
+
+.note {
+  border-radius: 12px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  background: var(--tile-header, #9AD7F5);
+  border-bottom: 1px solid rgba(20, 40, 70, 0.08);
+}
+
+.icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.kind {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(20, 40, 70, 0.7);
+}
+
+.label {
+  flex: 1;
+  padding: 0.35rem 0.75rem 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.25;
+  word-break: break-word;
+  color: #1a2740;
+}
+
+.resize {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 14px;
+  height: 14px;
+  cursor: nwse-resize;
+  border-radius: 2px;
+  background:
+    linear-gradient(135deg, transparent 50%, rgba(20, 40, 70, 0.35) 50%),
+    linear-gradient(135deg, transparent 65%, rgba(20, 40, 70, 0.55) 65%);
+}
