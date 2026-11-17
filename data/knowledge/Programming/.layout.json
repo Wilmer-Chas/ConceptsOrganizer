@@ -1,0 +1,18 @@
+[
+  { "path": "Programming/Closures.md", "x": 40, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/wow.md", "x": 250, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/Growth-Overview.md", "x": 460, "y": 40, "width": 200, "height": 120 },
+  { "path": "Programming/Tooling", "x": 40, "y": 200, "width": 180, "height": 120 },
+  { "path": "Programming/Data-And-SQL", "x": 250, "y": 200, "width": 180, "height": 120 },
+  { "path": "Programming/Memory", "x": 460, "y": 200, "width": 180, "height": 120 },
+  { "path": "Programming/Paradigms", "x": 670, "y": 200, "width": 180, "height": 120 },
+  { "path": "Programming/Design-Patterns", "x": 40, "y": 360, "width": 180, "height": 120 },
+  { "path": "Programming/Algorithms", "x": 250, "y": 360, "width": 180, "height": 120 },
+  { "path": "Programming/SOLID", "x": 460, "y": 360, "width": 180, "height": 120 },
+  { "path": "Programming/Craft-Conventions", "x": 670, "y": 360, "width": 180, "height": 120 },
+  { "path": "Programming/Concurrency", "x": 40, "y": 520, "width": 180, "height": 120 },
+  { "path": "Programming/Systems-Performance", "x": 250, "y": 520, "width": 200, "height": 120 },
+  { "path": "Programming/Problem-Solving", "x": 480, "y": 520, "width": 180, "height": 120 },
+  { "path": "Programming/Architecture", "x": 40, "y": 680, "width": 200, "height": 120 },
+  { "path": "Programming/DevOps", "x": 280, "y": 680, "width": 180, "height": 120 }
+]

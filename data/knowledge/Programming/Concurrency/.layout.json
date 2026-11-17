@@ -1,0 +1,6 @@
+[
+  { "path": "Programming/Concurrency/Mutex.md", "x": 40, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/Concurrency/Condition-Variables.md", "x": 250, "y": 40, "width": 220, "height": 110 },
+  { "path": "Programming/Concurrency/Atomic.md", "x": 500, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/Concurrency/Fibers.md", "x": 40, "y": 190, "width": 180, "height": 110 }
+]

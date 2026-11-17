@@ -1,0 +1,13 @@
+[
+  { "path": "projects/math/Overview.md", "x": 40, "y": 40, "width": 200, "height": 120 },
+  { "path": "projects/math/Shortest-Path.md", "x": 280, "y": 40, "width": 200, "height": 120 },
+  { "path": "projects/math/Sandpile.md", "x": 520, "y": 40, "width": 200, "height": 120 },
+  { "path": "projects/math/Exponentials-Cooling.md", "x": 760, "y": 40, "width": 200, "height": 120 },
+  { "path": "projects/math/Heavy-Tails.md", "x": 40, "y": 200, "width": 200, "height": 120 },
+  { "path": "projects/math/Geometry-Distance.md", "x": 280, "y": 200, "width": 200, "height": 120 },
+  { "path": "projects/math/Chaos-Logistic-Map.md", "x": 520, "y": 200, "width": 200, "height": 120 },
+  { "path": "projects/math/Network-Flow.md", "x": 760, "y": 200, "width": 200, "height": 120 },
+  { "path": "projects/math/Monte-Carlo-Pi.md", "x": 40, "y": 360, "width": 200, "height": 120 },
+  { "path": "projects/math/Packaging.md", "x": 280, "y": 360, "width": 200, "height": 120 },
+  { "path": "projects/math/Teaching-Notes.md", "x": 520, "y": 360, "width": 200, "height": 120 }
+]

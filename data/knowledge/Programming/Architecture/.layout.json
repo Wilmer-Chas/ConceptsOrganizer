@@ -1,0 +1,8 @@
+[
+  { "path": "Programming/Architecture/Overview.md", "x": 40, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/Architecture/Layered-Backend.md", "x": 250, "y": 40, "width": 190, "height": 110 },
+  { "path": "Programming/Architecture/Frontend-Features.md", "x": 470, "y": 40, "width": 190, "height": 110 },
+  { "path": "Programming/Architecture/Architecture-Tests.md", "x": 40, "y": 190, "width": 200, "height": 110 },
+  { "path": "Programming/Architecture/Unit-Tests.md", "x": 270, "y": 190, "width": 180, "height": 110 },
+  { "path": "Programming/Architecture/Integration-Tests.md", "x": 480, "y": 190, "width": 200, "height": 110 }
+]

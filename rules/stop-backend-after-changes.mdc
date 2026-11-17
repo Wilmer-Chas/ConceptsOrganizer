@@ -1,0 +1,15 @@
+---
+description: Stop running Backend after code changes so builds are not file-locked
+globs: src/Backend/**/*
+alwaysApply: false
+---
+
+# Stop Backend after changes
+
+After editing Backend code (or before `dotnet build` / `dotnet run` / `dotnet test` that rebuilds Backend), stop any running Backend process so `Backend.exe` is not locked (MSB3027 / MSB3021).
+
+```powershell
+Get-Process -Name Backend -ErrorAction SilentlyContinue | Stop-Process -Force
+```
+
+Do this at the end of the change set, not mid-edit unless a rebuild is required immediately.

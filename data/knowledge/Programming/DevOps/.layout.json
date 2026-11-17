@@ -1,0 +1,7 @@
+[
+  { "path": "Programming/DevOps/Overview.md", "x": 40, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/DevOps/Infrastructure-as-Code.md", "x": 250, "y": 40, "width": 210, "height": 120 },
+  { "path": "Programming/DevOps/Terraform.md", "x": 490, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/DevOps/Ansible.md", "x": 40, "y": 200, "width": 180, "height": 110 },
+  { "path": "Programming/DevOps/Keep-It-Simple.md", "x": 250, "y": 200, "width": 200, "height": 110 }
+]

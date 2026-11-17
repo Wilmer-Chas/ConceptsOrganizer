@@ -1,0 +1,6 @@
+[
+  { "path": "Programming/Systems-Performance/Memory-Architecture.md", "x": 40, "y": 40, "width": 210, "height": 120 },
+  { "path": "Programming/Systems-Performance/Locality.md", "x": 280, "y": 40, "width": 180, "height": 120 },
+  { "path": "Programming/Systems-Performance/Optimizations.md", "x": 490, "y": 40, "width": 180, "height": 120 },
+  { "path": "Programming/Systems-Performance/Windows-CreateRemoteThread.md", "x": 40, "y": 200, "width": 240, "height": 120 }
+]

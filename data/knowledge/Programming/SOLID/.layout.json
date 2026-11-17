@@ -1,0 +1,8 @@
+[
+  { "path": "Programming/SOLID/Overview.md", "x": 40, "y": 40, "width": 180, "height": 110 },
+  { "path": "Programming/SOLID/SRP.md", "x": 250, "y": 40, "width": 160, "height": 100 },
+  { "path": "Programming/SOLID/OCP.md", "x": 440, "y": 40, "width": 160, "height": 100 },
+  { "path": "Programming/SOLID/LSP.md", "x": 40, "y": 180, "width": 160, "height": 100 },
+  { "path": "Programming/SOLID/ISP.md", "x": 230, "y": 180, "width": 160, "height": 100 },
+  { "path": "Programming/SOLID/DIP.md", "x": 420, "y": 180, "width": 160, "height": 100 }
+]

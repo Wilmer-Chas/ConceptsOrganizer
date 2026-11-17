@@ -1,0 +1,7 @@
+[
+  { "path": "Programming/Design-Patterns/Catalog-Overview.md", "x": 40, "y": 40, "width": 200, "height": 120 },
+  { "path": "Programming/Design-Patterns/What-Patterns-Can-Cannot.md", "x": 280, "y": 40, "width": 220, "height": 120 },
+  { "path": "Programming/Design-Patterns/Singleton.md", "x": 40, "y": 200, "width": 180, "height": 110 },
+  { "path": "Programming/Design-Patterns/Factory-Method.md", "x": 260, "y": 200, "width": 180, "height": 110 },
+  { "path": "Programming/Design-Patterns/Dependency-Injection.md", "x": 480, "y": 200, "width": 200, "height": 110 }
+]
