@@ -38,4 +38,4 @@ So: binary search explains *why* it is log N; B-trees are *how* databases do tha
 - Indexes speed reads; they cost **write** work and space (structure must stay in sync).  
 - Wrong or unused indexes help little — measure with query plans when unsure.
 
-Related: Cpp-And-SQLite, Algorithms/Big-O, Algorithms/Sorting-Searching
+Related: Transactions, Cpp-And-SQLite, Algorithms/Big-O, Algorithms/Sorting-Searching
