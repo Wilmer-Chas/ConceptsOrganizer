@@ -103,6 +103,38 @@
   gap: 0.4rem;
 }
 
+.viewToggle {
+  display: inline-flex;
+  border: 1px solid #d3e0ef;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.viewButton {
+  border: none;
+  background: transparent;
+  color: #4d6485;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+.viewButton + .viewButton {
+  border-left: 1px solid #d3e0ef;
+}
+
+.viewButton:hover {
+  background: #eef4fb;
+}
+
+.viewButtonActive {
+  background: #e8f0fe;
+  color: #1a2740;
+}
+
 .button {
   border: 1px solid #d3e0ef;
   background: #ffffff;
@@ -180,6 +212,21 @@
 
 .editor::placeholder {
   color: #9aa0a6;
+}
+
+.previewPane {
+  flex: 1;
+  width: 100%;
+  min-height: min(70vh, 720px);
+  padding: 3rem 4rem;
+  overflow: auto;
+  background: #ffffff;
+}
+
+.previewEmpty {
+  margin: 0;
+  color: #9aa0a6;
+  font-size: 0.95rem;
 }
 
 .suggestions {
@@ -262,6 +309,11 @@
   }
 
   .editor {
+    padding: 1.5rem 1.25rem;
+    min-height: 60vh;
+  }
+
+  .previewPane {
     padding: 1.5rem 1.25rem;
     min-height: 60vh;
   }

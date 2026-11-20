@@ -3,5 +3,8 @@
   { "path": "Programming/Data-And-SQL/SQLite-And-DBeaver.md", "x": 280, "y": 40, "width": 200, "height": 120 },
   { "path": "Programming/Data-And-SQL/Cpp-And-SQLite.md", "x": 520, "y": 40, "width": 200, "height": 120 },
   { "path": "Programming/Data-And-SQL/Indexes.md", "x": 40, "y": 200, "width": 200, "height": 120 },
-  { "path": "Programming/Data-And-SQL/Transactions.md", "x": 280, "y": 200, "width": 200, "height": 120 }
+  { "path": "Programming/Data-And-SQL/Transactions.md", "x": 280, "y": 200, "width": 200, "height": 120 },
+  { "path": "Programming/Data-And-SQL/Migrations-And-Schema.md", "x": 520, "y": 200, "width": 200, "height": 120 },
+  { "path": "Programming/Data-And-SQL/ORM.md", "x": 40, "y": 360, "width": 200, "height": 120 },
+  { "path": "Programming/Data-And-SQL/N-Plus-One.md", "x": 280, "y": 360, "width": 200, "height": 120 }
 ]

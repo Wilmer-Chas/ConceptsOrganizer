@@ -1,10 +1,17 @@
 .wrap {
   position: relative;
-  min-width: min(280px, 70vw);
+  min-width: min(320px, 70vw);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .input {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   border: 1px solid #9ec4ef;
   background: #ffffff;
   color: var(--ink);
@@ -17,6 +24,42 @@
 .input:focus {
   outline: 2px solid rgba(47, 125, 225, 0.35);
   border-color: #2f7de1;
+}
+
+.hop {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  flex-shrink: 0;
+  border: 1px solid #9ec4ef;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 0.15rem;
+}
+
+.hopButton {
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hopButton:hover {
+  background: #e8f3ff;
+}
+
+.hopCount {
+  font-size: 0.75rem;
+  color: var(--muted);
+  min-width: 2.4rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .results {
@@ -51,8 +94,13 @@
   border-radius: 7px;
 }
 
-.result:hover {
+.result:hover,
+.resultActive {
   background: #e8f3ff;
+}
+
+.resultCurrent {
+  box-shadow: inset 3px 0 0 #2f7de1;
 }
 
 .resultName {

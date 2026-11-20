@@ -7,10 +7,11 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { knowledgeApi } from "@/Api/knowledgeApi";
 import type { SearchHitDto } from "@/Api/types";
 import { Breadcrumb } from "@/Components/Breadcrumb";
+import { MarkdownPreview } from "@/Components/MarkdownPreview";
 import {
   extractConceptQuery,
   replaceRange,
@@ -19,9 +20,28 @@ import { SearchBar } from "@/Components/SearchBar";
 import { colorForPath } from "@/Components/tileColors";
 import styles from "./NoteEditor.module.css";
 
+type ViewMode = "edit" | "preview";
+
 interface NoteEditorProps {
   path: string;
 }
+
+function findPhraseIndex(haystack: string, phrase: string): number {
+  if (!phrase) return -1;
+  return haystack.toLowerCase().indexOf(phrase.toLowerCase());
+}
+
+function scrollTextareaToMatch(
+  el: HTMLTextAreaElement,
+  content: string,
+  index: number,
+) {
+  const style = window.getComputedStyle(el);
+  const lineHeight = Number.parseFloat(style.lineHeight) || 22;
+  const line = content.slice(0, index).split("\n").length - 1;
+  el.scrollTop = Math.max(0, line * lineHeight - el.clientHeight / 3);
+}
+
 
 type SaveStatus = "saved" | "saving" | "unsaved" | "error";
 
@@ -49,6 +69,8 @@ function extractLinkedTags(content: string): string[] {
 
 export function NoteEditor({ path }: NoteEditorProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchPhrase = (searchParams.get("q") ?? "").trim();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const contentRef = useRef("");
   const pathRef = useRef(path);
@@ -56,6 +78,7 @@ export function NoteEditor({ path }: NoteEditorProps) {
   const dirtyRef = useRef(false);
   const saveTimerRef = useRef<number | null>(null);
   const saveGenerationRef = useRef(0);
+  const jumpedPhraseRef = useRef<string | null>(null);
 
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
@@ -67,6 +90,7 @@ export function NoteEditor({ path }: NoteEditorProps) {
     null,
   );
   const [activeSuggestion, setActiveSuggestion] = useState(0);
+  const [viewMode, setViewMode] = useState<ViewMode>("preview");
 
   const folderPath = useMemo(() => {
     const normalized = path.replace(/\\/g, "/");
@@ -138,6 +162,9 @@ export function NoteEditor({ path }: NoteEditorProps) {
     contentRef.current = "";
     setSaveStatus("saved");
     setError(null);
+    setViewMode("preview");
+
+    jumpedPhraseRef.current = null;
 
     void knowledgeApi
       .getNote(activePath)
@@ -150,7 +177,11 @@ export function NoteEditor({ path }: NoteEditorProps) {
         dirtyRef.current = false;
         setLoaded(true);
         setSaveStatus("saved");
-        requestAnimationFrame(() => textareaRef.current?.focus());
+        requestAnimationFrame(() => {
+          const el = textareaRef.current;
+          if (!el) return;
+          el.focus();
+        });
       })
       .catch((err: unknown) => {
         if (cancelled) return;
@@ -167,6 +198,24 @@ export function NoteEditor({ path }: NoteEditorProps) {
       }
     };
   }, [path]);
+
+  useEffect(() => {
+    if (!loaded || !searchPhrase) return;
+    const jumpKey = `${path}::${searchPhrase}`;
+    if (jumpedPhraseRef.current === jumpKey) return;
+
+    const index = findPhraseIndex(content, searchPhrase);
+    if (index < 0) return;
+
+    jumpedPhraseRef.current = jumpKey;
+    requestAnimationFrame(() => {
+      const el = textareaRef.current;
+      if (!el) return;
+      el.focus();
+      el.setSelectionRange(index, index + searchPhrase.length);
+      scrollTextareaToMatch(el, content, index);
+    });
+  }, [loaded, content, path, searchPhrase]);
 
   const refreshTagSuggestions = (text: string, caret: number) => {
     const found = extractConceptQuery(text, caret);
@@ -325,6 +374,33 @@ export function NoteEditor({ path }: NoteEditorProps) {
         </div>
         <div className={styles.actions}>
           <SearchBar />
+          <div className={styles.viewToggle} role="group" aria-label="Note view">
+            <button
+              type="button"
+              className={`${styles.viewButton} ${viewMode === "edit" ? styles.viewButtonActive : ""}`}
+              aria-pressed={viewMode === "edit"}
+              onClick={() => {
+                setViewMode("edit");
+                requestAnimationFrame(() => textareaRef.current?.focus());
+              }}
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              className={`${styles.viewButton} ${viewMode === "preview" ? styles.viewButtonActive : ""}`}
+              aria-pressed={viewMode === "preview"}
+              onClick={() => {
+                if (loadedRef.current && dirtyRef.current) {
+                  clearSaveTimer();
+                  void persist(pathRef.current, contentRef.current);
+                }
+                setViewMode("preview");
+              }}
+            >
+              Preview
+            </button>
+          </div>
           <button
             type="button"
             className={styles.button}
@@ -349,65 +425,81 @@ export function NoteEditor({ path }: NoteEditorProps) {
       <div className={styles.workspace}>
         <section className={styles.page} aria-label="Concept note editor">
           <div className={styles.editorPane}>
-            <textarea
-              ref={textareaRef}
-              className={styles.editor}
-              value={content}
-              disabled={!loaded}
-              onChange={(event) => {
-                const next = event.target.value;
-                setContent(next);
-                scheduleAutosave(next);
-                refreshTagSuggestions(next, event.target.selectionStart);
-              }}
-              onKeyUp={(event) => {
-                refreshTagSuggestions(
-                  event.currentTarget.value,
-                  event.currentTarget.selectionStart,
-                );
-              }}
-              onClick={(event) => {
-                refreshTagSuggestions(
-                  event.currentTarget.value,
-                  event.currentTarget.selectionStart,
-                );
-              }}
-              onBlur={() => {
-                if (loadedRef.current && dirtyRef.current) {
-                  clearSaveTimer();
-                  void persist(pathRef.current, contentRef.current);
-                }
-              }}
-              onKeyDown={onEditorKeyDown}
-              spellCheck={true}
-              aria-label="Concept document"
-              placeholder="Start writing…"
-            />
-            {suggestions.length > 0 ? (
-              <ul
-                className={styles.suggestions}
-                role="listbox"
-                aria-label="Concept suggestions"
-              >
-                {suggestions.map((hit, index) => (
-                  <li key={hit.path}>
-                    <button
-                      type="button"
-                      className={`${styles.suggestion} ${index === activeSuggestion ? styles.suggestionActive : ""}`}
-                      onMouseDown={(event) => {
-                        event.preventDefault();
-                        applySuggestion(hit);
-                      }}
-                    >
-                      <span>{tagFromName(hit.name)}</span>
-                      <span className={styles.suggestionMeta}>
-                        {hit.kind} · {hit.parentPath || "Knowledge"}
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+            {viewMode === "edit" ? (
+              <>
+                <textarea
+                  ref={textareaRef}
+                  className={styles.editor}
+                  value={content}
+                  disabled={!loaded}
+                  onChange={(event) => {
+                    const next = event.target.value;
+                    setContent(next);
+                    scheduleAutosave(next);
+                    refreshTagSuggestions(next, event.target.selectionStart);
+                  }}
+                  onKeyUp={(event) => {
+                    refreshTagSuggestions(
+                      event.currentTarget.value,
+                      event.currentTarget.selectionStart,
+                    );
+                  }}
+                  onClick={(event) => {
+                    refreshTagSuggestions(
+                      event.currentTarget.value,
+                      event.currentTarget.selectionStart,
+                    );
+                  }}
+                  onBlur={() => {
+                    if (loadedRef.current && dirtyRef.current) {
+                      clearSaveTimer();
+                      void persist(pathRef.current, contentRef.current);
+                    }
+                  }}
+                  onKeyDown={onEditorKeyDown}
+                  spellCheck={true}
+                  aria-label="Concept document"
+                  placeholder="Start writing…"
+                />
+                {suggestions.length > 0 ? (
+                  <ul
+                    className={styles.suggestions}
+                    role="listbox"
+                    aria-label="Concept suggestions"
+                  >
+                    {suggestions.map((hit, index) => (
+                      <li key={hit.path}>
+                        <button
+                          type="button"
+                          className={`${styles.suggestion} ${index === activeSuggestion ? styles.suggestionActive : ""}`}
+                          onMouseDown={(event) => {
+                            event.preventDefault();
+                            applySuggestion(hit);
+                          }}
+                        >
+                          <span>{tagFromName(hit.name)}</span>
+                          <span className={styles.suggestionMeta}>
+                            {hit.kind} · {hit.parentPath || "Knowledge"}
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </>
+            ) : (
+              <div className={styles.previewPane}>
+                {loaded ? (
+                  <MarkdownPreview
+                    content={content}
+                    folderPath={folderPath}
+                    onConceptClick={(conceptName) => void resolveConcept(conceptName)}
+                  />
+                ) : (
+                  <p className={styles.previewEmpty}>Loading…</p>
+                )}
+              </div>
+            )}
           </div>
 
           {linkedTags.length > 0 ? (
